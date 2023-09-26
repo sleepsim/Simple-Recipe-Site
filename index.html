@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <title>Pocholo's Recipes</title>
+
+        <!-- CSS files -->
+        <link rel="stylesheet" href="css/main.css">
+        
+    </head>
+
+    <body>
+
+        <div class="navbar">
+            <ul>
+                <li><a href="">Home</a></li>
+                <li><a href="">Recipes</a></li>
+                <li><a href="">About</a></li>
+            </ul>
+        </div>
+
+        <h1>Add A New Recipe</h1>  
+
+        <form action="">
+
+            <label for="recipeName">Enter Recipe name</label>
+            <input type="text" id="recipeName" name="recipeName" placeholder="Enter Recipe Name">
+            
+            <textarea rows="5" name="recipeDesc" placeholder="Recipe Description"></textarea>
+            
+            <label for="servingSize">Serving Size</label>
+            <input type="text" id="servingSize" name="servingSize">
+            
+            <label for="prepTime">Prep Time</label>
+            <input type="number" id="prepTime" name="prepTime">
+            
+            <label for="cookTime">Cooking Time</label>
+            <input type="number" name="cookTime" id="cookTime">
+
+            <div class="inline-form">
+                <input type="number" id="ingr1_quantity" name="ingr1_quantity" placeholder="Qty.">
+                <select name="ingr1_measurement" id="ingr1_measurement">
+                    <option value="cup">cup</option>
+                    <option value="ml">ml</option>
+                    <option value="litre">litre</option>
+                    <option value="spoon">spoon</option>
+                    <option value="tspoon">tspoon</option>
+                    <option value="galoon">galloon</option>
+                </select>
+
+                <input type="text" id="ingr1_name" name="ingr1_name" placeholder="item name">
+
+            </div>
+
+            <textarea name="" id="" cols="30" rows="10" placeholder="Step 1"></textarea>
+            <textarea name="" id="" cols="30" rows="10" placeholder="Step 2"></textarea>
+
+            <select name="cuisine" id="cuisine">
+                <option value="Western">Western</option>
+                <option value="European">European</option>
+                <option value="Asian">Asian</option>
+            </select>
+
+        </form>
+
+
+        
+    </body>
+    
+</html>
