@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #333;
+  background-color: rgb(241, 241, 241);
   position: fixed;
   top: 0;
   left: 0;
@@ -15,17 +15,25 @@
 }
 .navbar li a {
   display: block;
-  color: white;
+  color: black;
   text-align: center;
   padding: 1rem 1rem;
   text-decoration: none;
 }
 .navbar li a:hover {
-  color: blueviolet;
+  color: orange;
+}
+
+.foot {
+  width: 100%;
+  height: 5rem;
+  position: relative;
+  bottom: 0;
 }
 
 body {
   margin-top: 3.5rem;
+  font-family: "Mulish";
 }
 
 label {
@@ -34,17 +42,55 @@ label {
 
 input {
   margin: 1rem;
+  padding: 0.75rem;
   display: block;
+  width: 30rem;
+  background-color: rgb(230, 230, 230);
+  border: 3px hidden orange;
+  border-radius: 15px;
+  height: 1rem;
+  font-weight: 600;
+}
+input:focus {
+  background-color: white;
+  outline: 3px solid orange;
+}
+input:focus::placeholder {
+  color: transparent;
+}
+
+input[type=submit] {
+  width: 15rem;
+  height: 3rem;
+  background-color: orange;
 }
 
 textarea {
   display: block;
+  padding: 0.75rem;
+  min-height: 5rem;
   margin: 1rem;
+  border: 3px hidden orange;
+  border-radius: 15px;
+  background-color: rgb(230, 230, 230);
   resize: vertical;
+  width: 30rem;
+  font-family: "Mulish";
+  color: black;
+}
+textarea:focus {
+  background-color: white;
+  outline: 3px solid orange;
+}
+textarea:focus::placeholder {
+  color: transparent;
 }
 
 select {
   display: block;
+  margin: 1rem;
+  padding: 0.5rem;
+  border-radius: 15px;
 }
 
 .inline-form label {
@@ -54,4 +100,78 @@ select {
 .inline-form input {
   display: inline;
   margin: 0;
+}
+
+.flex-container {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  flex-direction: column;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.padding-medium {
+  padding: 3rem;
+}
+
+.no-gap {
+  gap: 0;
+}
+
+.item-grow-1 {
+  flex-grow: 0;
+}
+
+.item-grow-2 {
+  flex-grow: 2;
+}
+
+.item-shrink-1 {
+  flex-shrink: 1;
+}
+
+.item-shrink-2 {
+  flex-shrink: 2;
+}
+
+.no-mr {
+  margin-right: 0;
+}
+
+.no-ml {
+  margin-left: 0;
+}
+
+.ingredient-container {
+  display: flex;
+  gap: 0;
+  flex-direction: row;
+}
+.ingredient-container select {
+  width: 5rem;
+}
+
+.smaller {
+  width: 3rem;
+}
+
+.bigger {
+  width: 100%;
+}
+
+.serving-container {
+  display: flex;
+  gap: 0;
+  flex-direction: row;
+  align-items: center;
+}
+.serving-container input[type=radio] {
+  width: 2rem;
 }

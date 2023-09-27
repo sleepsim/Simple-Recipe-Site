@@ -1,0 +1,82 @@
+.flex-container{
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+    flex-direction: column;
+    // width:100%;
+}
+
+.justify-center{
+    justify-content: center;
+}
+
+.align-center{
+    align-items: center;
+}
+
+.padding-medium{
+    padding: 3rem;
+}
+
+.no-gap{
+    gap: 0;
+}
+
+.item-grow-1{
+    flex-grow: 0;
+}
+
+.item-grow-2{
+    flex-grow: 2;
+}
+
+.item-shrink-1{
+    flex-shrink: 1;
+}
+.item-shrink-2{
+    flex-shrink: 2;
+}
+
+.no-mr{
+    margin-right: 0;
+}
+
+.no-ml{
+    margin-left: 0;
+}
+
+.ingredient-container{
+    display: flex;
+    gap: 0;
+    flex-direction: row;
+
+    // input[type=text]{
+    //     width:100%;
+    // }
+
+    // input[type=number]{
+    //     width: 3rem;
+    // }
+
+    select{
+        width:5rem;
+    }
+}
+
+.smaller{
+    width: 3rem;
+}
+.bigger{
+    width: 100%;
+}
+
+.serving-container{
+    display: flex;
+    gap: 0;
+    flex-direction: row;
+    align-items: center;
+
+    input[type=radio]{
+        width: 2rem;
+    }
+}
