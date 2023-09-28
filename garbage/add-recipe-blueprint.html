@@ -10,15 +10,18 @@
         <link rel="stylesheet" href="css/main.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;600&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;600&family=Roboto+Slab:wght@700&family=Sofia+Sans:wght@600&display=swap" rel="stylesheet">
         
+        <!-- Icons for design -->
+        <script src="https://kit.fontawesome.com/4c3e80f479.js" crossorigin="anonymous"></script>
+
     </head>
 
     <body>
 
         <div class="navbar">
             <ul>
-                <li><a href="">Home</a></li>
+                <li><a id="logo" href="index.html"><i class="fa-solid fa-kitchen-set"></i> iatPlate</a></li>
                 <li><a href="">Recipes</a></li>
                 <li><a href="">Add Recipe</a></li>
                 <li><a href="">About</a></li>
@@ -29,7 +32,7 @@
 
             <h1>Add A New Recipe</h1>  
 
-            <form action="">
+            <form action="add_recipe.php">
                 <label for="recipeName">Recipe Details</label>
                 <input type="text" id="recipeName" name="recipeName" placeholder="Enter Recipe Name">
             
@@ -55,8 +58,8 @@
                 <!-- Ingredients -->
                 <label for="ingr1_measurement">Ingredients</label>
                 <div class="ingredient-container">
-                    <input class="no-mr smaller" type="text" id="ingr_1_quantity" name="ingr_1_quantity" placeholder="Qty.">
-                    <select class="no-mr" name="ingr1_measurement" id="ingr1_measurement">
+                    <input class="no-mr smaller" type="text" id="ingr_quantity1" name="ingr_quantity1" placeholder="Qty.">
+                    <select class="no-mr" name="ingr_measurement1" id="ingr_measurement1">
                         <option value="cup">cup</option>
                         <option value="ml">ml</option>
                         <option value="litre">litre</option>
@@ -64,12 +67,12 @@
                         <option value="tspoon">tspoon</option>
                         <option value="galoon">galloon</option>
                     </select>
-                    <input class="bigger" type="text" id="ingr1_name" name="ingr1_name" placeholder="item name">
+                    <input class="bigger" type="text" id="ingr_name1" name="ingr_name1" placeholder="item name">
                 </div> 
                 
                 <div class="ingredient-container">
-                    <input class="no-mr smaller" type="text" id="ingr_2_quantity" name="ingr_2_quantity" placeholder="Qty.">
-                    <select class="no-mr" name="ingr2_measurement" id="ingr1_measurement">
+                    <input class="no-mr smaller" type="text" id="ingr_quantity2" name="ingr_quantity2" placeholder="Qty.">
+                    <select class="no-mr" name="ingr_measurement2" id="ingr_measurement2">
                         <option value="cup">cup</option>
                         <option value="ml">ml</option>
                         <option value="litre">litre</option>
@@ -77,12 +80,12 @@
                         <option value="tspoon">tspoon</option>
                         <option value="galoon">galloon</option>
                     </select>
-                    <input class="bigger" type="text" id="ingr2_name" name="ingr2_name" placeholder="item name">
+                    <input class="bigger" type="text" id="ingr_name2" name="ingr_name2" placeholder="item name">
                 </div> 
 
                 <div class="ingredient-container">
-                    <input class="no-mr smaller" type="text" id="ingr_3_quantity" name="ingr_3_quantity" placeholder="Qty.">
-                    <select class="no-mr" name="ingr1_measurement" id="ingr1_measurement">
+                    <input class="no-mr smaller" type="text" id="ingr_quantity3" name="ingr_quantity3" placeholder="Qty.">
+                    <select class="no-mr" name="ingr_measurement3" id="ingr_measurement3">
                         <option value="cup">cup</option>
                         <option value="ml">ml</option>
                         <option value="litre">litre</option>
@@ -90,7 +93,7 @@
                         <option value="tspoon">tspoon</option>
                         <option value="gallon">galloon</option>
                     </select>
-                    <input class="bigger" type="text" id="ingr_3_name" name="ingr_3_name" placeholder="item name">
+                    <input class="bigger" type="text" id="ingr_name3" name="ingr_name3" placeholder="item name">
                 </div> 
 
                 <label for="instructions">Instructions (separate steps by lines)</label>

@@ -2,12 +2,15 @@
 
 .navbar{
 
+    font-family: 'Sofia Sans';
+
     ul{
         list-style-type: none;
         margin: 0;
         padding: 0;
         overflow: hidden;
-        background-color: rgb(241, 241, 241);
+        background-color: rgb(255, 255, 255);
+        box-shadow: 0px -30px 50px 0px #999999;
         
         // Stay on top
         position: fixed;
@@ -15,6 +18,7 @@
         left: 0;
         width: 100%;
         height: 3.5rem;
+        
     }
     
     li{
@@ -30,6 +34,14 @@
     
         a:hover{
             color: orange;
+        }
+    }
+
+    #logo{
+        color: orange;
+
+        &:hover{
+            color: rgb(154, 100, 0);
         }
     }
 }
@@ -60,7 +72,7 @@ input{
     border: 3px hidden orange;
     border-radius: 15px;
     height: 1rem;
-    font-weight: 600;
+    font-family: 'Roboto Slab';
 
     &:focus{
         background-color: white;
@@ -70,13 +82,23 @@ input{
             color: transparent;
         }
     }
+
+    &[type=radio]{
+        border: 0px transparent;
+        accent-color: orange;
+    }
+    &[type=submit]{
+        width: 15rem;
+        height: 3rem;
+        background-color: orange;
+    }
 }
 
-input[type=submit]{
-    width: 15rem;
-    height: 3rem;
-    background-color: orange;
-}
+// input[type=submit]{
+//     width: 15rem;
+//     height: 3rem;
+//     background-color: orange;
+// }
 
 textarea{
     display: block;
@@ -88,7 +110,7 @@ textarea{
     background-color: rgb(230, 230, 230);
     resize: vertical;
     width: 30rem;
-    font-family: 'Mulish';
+    font-family: 'Roboto Slab';
     color: black;
 
     &:focus{
@@ -119,4 +141,8 @@ select{
       margin: 0;
     }
  
-  }
+}
+
+h1{
+    font-family: 'Roboto Slab';
+}
