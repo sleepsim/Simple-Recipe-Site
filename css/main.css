@@ -125,6 +125,10 @@ h1 {
   font-family: "Roboto Slab";
 }
 
+.red-text {
+  color: red;
+}
+
 .flex-container {
   display: flex;
   gap: 2rem;

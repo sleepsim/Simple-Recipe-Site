@@ -21,23 +21,115 @@
     <body>
 
         <?php
-            //Validation
 
-            function checkName(){
-                if(isset($_POST['recipeName'])){
-                    if(empty($_POST['recipeName']) || (strlen(trim($_POST['recipeName'])) == 0)){
-                        echo 'Error: Variable RecipeName empty';
+            //Array to store variables
+            $data = array();
+
+            //Load Functions
+            require'functions.php';
+
+            //Start session to store variables for first 3 (Name, Desc, Serving Size)
+            session_start();
+
+            if (!empty($_POST)) {
+                foreach($_POST as $key => $value) {
+                    $_SESSION['add_recipe'][$key] = $value;
+                }
+            }
+
+            function noError(){
+                $_SESSION['add_recipe']['errorCancel'] = true;
+            };
+
+
+            //Validation
+            function checkData($varName = ""){
+                global $data;
+                if(isset($_POST[$varName])){
+                    if(empty($_POST[$varName]) || (strlen(trim($_POST[$varName])) == 0)){
+                        $_SESSION['add_recipe']['errorCancel'] = false;
+                        //Error code then send back to add-recipe page
+                        switch($varName){
+                            case "recipeName":
+                                $_SESSION['add_recipe']['errorCode'] = 'ERROR: Recipe name empty';
+                                break;
+                            case "recipeDesc":
+                                $_SESSION['add_recipe']['errorCode'] = 'ERROR: Recipe description empty'. $_POST['servingSize'];
+                                break;
+                            case "servingSize":
+                                $_SESSION['add_recipe']['errorCode'] = 'ERROR: Must select serving size';
+                                break;
+                            case "prepTime":
+                                $_SESSION['add_recipe']['errorCode'] = 'ERROR: Must input prep time';
+                                break;
+                            case "cookTime":
+                                $_SESSION['add_recipe']['errorCode'] = 'ERROR: Must input cooking time';
+                                break;
+                            default:
+                                $_SESSION['add_recipe']['errorCode'] = 'ERROR: Processing Failed';
+                        }
+                        header('Location: add-recipe.php');
+                        exit();
+
+                    }elseif(($varName == "prepTime" || $varName == "cookTime") && $_POST[$varName] <= 0){
+                        $_SESSION['add_recipe']['errorCancel'] = false;
+                        switch($varName){
+                            case "prepTime":
+                                $_SESSION['add_recipe']['errorCode'] = "ERROR: Prep time must be a number bigger than 0";
+                                break;
+                            case "cookTime":
+                                $_SESSION['add_recipe']['errorCode'] = "ERROR: Cook time must be a number bigger than 0";
+                                break;
+                            default:
+                                $_SESSION['add_recipe']['errorCode'] = "ERROR: $varName must be a number bigger than 0";
+                        }
+                        header('Location: add-recipe.php');
+                        exit();
+                        
                     }else{
-                        echo '<p>haha i work i guess</p>';
-                        echo '<p>variable a is </p>' . trim($_POST['recipeName']);
+                        //If successful store input
+                        $data += array($varName => $_POST[$varName]);
+                    }
+                }else{
+                    $_SESSION['add_recipe']['errorCancel'] = false;
+                    $_SESSION['add_recipe']['errorCode'] = 'Error: '. $varName . ' Input failed';
+                    header('Location: add-recipe.php');
+                    exit();
+                }
+            }
+
+            function checkIngredients(){
+                global $data;
+
+                if(isset($_POST['ingr_quantity0'], $_POST['ingr_measurement0'], $_POST['ingr_name0'])){
+                    if(empty($_POST['ingr_quantity0'] || (strlen(trim($_POST['ingr_quantity0'])) == 0))){
+                        $_SESSION['add-recipe']['errorCode'] = 'ERROR: Must have atleast 1 ingredient'; 
                     }
                 }
             }
 
+        ?>   
+        
+        <?php 
+            checkData('recipeName');
+            checkData('recipeDesc');
+            checkData('servingSize');
+            checkData('prepTime');
+            checkData('cookTime');
 
-            
+            noError();
 
-        ?>    
+            generateNavbar();
+            divStart();
+
+            echo '  The name is' . $_POST['recipeName'];
+            echo '  Description is' . $_POST['recipeDesc'];
+            echo '  The serving size is ' . $_POST['servingSize'];
+            echo '  The prep time is ' . $_POST['prepTime'];
+            echo '  The cook time is ' . $_POST['cookTime'];
+        ?>
+
+
 
     </body>
 

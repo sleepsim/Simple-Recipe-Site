@@ -7,7 +7,7 @@
         <title>Pocholo's Recipes</title>
 
         <!-- CSS files -->
-        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="css/main.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;600&family=Roboto+Slab:wght@700&family=Sofia+Sans:wght@600&display=swap" rel="stylesheet">
@@ -21,9 +21,9 @@
 
         <div class="navbar">
             <ul>
-                <li><a id="logo" href="index.html"><i class="fa-solid fa-kitchen-set"></i> iatPlate</a></li>
+                <li><a id="logo" href="index.php"><i class="fa-solid fa-kitchen-set"></i> iatPlate</a></li>
                 <li><a href="">Recipes</a></li>
-                <li><a href="">Add Recipe</a></li>
+                <li><a href="add-recipe.php">Add Recipe</a></li>
                 <li><a href="">About</a></li>
             </ul>
         </div>
@@ -32,7 +32,7 @@
 
             <h1>Add A New Recipe</h1>  
 
-            <form action="add_recipe.php">
+            <form method="post" action="process-recipe.php">
                 <label for="recipeName">Recipe Details</label>
                 <input type="text" id="recipeName" name="recipeName" placeholder="Enter Recipe Name">
             
@@ -41,7 +41,7 @@
                 <label for="">Serving Size</label>
 
                 <div class="serving-container">
-                    <input type="radio" id="serving1" name="servingSize" value="1">
+                    <input type="radio" id="serving1" name="servingSize" value="1" checked>
                     <label for="serving1">1-2 People</label>
                     <input type="radio" id="serving2" name="servingSize" value="2">
                     <label for="serving2">3-4 People</label>
@@ -101,10 +101,11 @@
 
                 <label for="">Tags (separate tags by comma or ",")</label>
                 <textarea name="" id="" placeholder="Add Tags"></textarea>
+
+                <input type="submit" value="submit">
                 
             </form>
 
-            <input type="submit">
         </div>
 
         <div class="foot">
