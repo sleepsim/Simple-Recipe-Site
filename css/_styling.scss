@@ -148,5 +148,33 @@ h1{
 }
 
 .red-text{
+    width: 30rem;
     color: red;
+    font-family: 'Mulish';
+}
+
+
+.button-primary{
+    display: inline-block;
+    padding: 1rem;
+    font-family: "Poppins";
+    text-decoration: none;
+    background-color: orange;
+    border-radius: 8%;
+    cursor: pointer;
+    border: 0;
+
+    a{
+        color: white;
+        font-family: 'Mulish';
+        text-decoration: none; 
+    }
+
+    &:hover{
+        background-color: rgb(154, 100, 0);
+    }
+}
+
+.button-secondary{
+
 }

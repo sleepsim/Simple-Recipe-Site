@@ -45,6 +45,7 @@
             //Validation
             function checkData($varName = ""){
                 global $data;
+
                 if(isset($_POST[$varName])){
                     if(empty($_POST[$varName]) || (strlen(trim($_POST[$varName])) == 0)){
                         $_SESSION['add_recipe']['errorCancel'] = false;
@@ -54,7 +55,7 @@
                                 $_SESSION['add_recipe']['errorCode'] = 'ERROR: Recipe name empty';
                                 break;
                             case "recipeDesc":
-                                $_SESSION['add_recipe']['errorCode'] = 'ERROR: Recipe description empty'. $_POST['servingSize'];
+                                $_SESSION['add_recipe']['errorCode'] = 'ERROR: Recipe description empty';
                                 break;
                             case "servingSize":
                                 $_SESSION['add_recipe']['errorCode'] = 'ERROR: Must select serving size';
@@ -86,11 +87,11 @@
                         header('Location: add-recipe.php');
                         exit();
                         
-                    }else{
-                        //If successful store input
+                    }else{//If successful store input
                         $data += array($varName => $_POST[$varName]);
                     }
-                }else{
+
+                }else{ //First check fail
                     $_SESSION['add_recipe']['errorCancel'] = false;
                     $_SESSION['add_recipe']['errorCode'] = 'Error: '. $varName . ' Input failed';
                     header('Location: add-recipe.php');
@@ -101,10 +102,48 @@
             function checkIngredients(){
                 global $data;
 
-                if(isset($_POST['ingr_quantity0'], $_POST['ingr_measurement0'], $_POST['ingr_name0'])){
-                    if(empty($_POST['ingr_quantity0'] || (strlen(trim($_POST['ingr_quantity0'])) == 0))){
-                        $_SESSION['add-recipe']['errorCode'] = 'ERROR: Must have atleast 1 ingredient'; 
+                //If both true, means we have atleast one ingredient = PASS
+                $check1 = false;
+                $check2 = false;
+
+                //Check if there is atleast one ingredient
+                for($i = 0; $i < 10; $i++){
+                    
+                    if((!$check1 && !$check2) &&
+                        isset($_POST["ingr_quantity$i"], $_POST["ingr_measurement$i"], $_POST['ingr_name0'])){
+                        // Quantity
+                        if(empty($_POST["ingr_quantity$i"]) || (strlen(trim($_POST["ingr_quantity$i"])) == 0)){
+                            $_SESSION['add_recipe']['errorCancel'] = false;
+                            $_SESSION['add_recipe']['errorCode'] = "ERROR: Ingredient $i 's quantity cannot be empty";
+                            header('Location: add-recipe.php');
+                            exit();
+                        }elseif(!is_numeric($_POST["ingr_quantity$i"])){
+                            $_SESSION['add_recipe']['errorCancel'] = false;
+                            $_SESSION['add_recipe']['errorCode'] = "ERROR: Ingredient $i 's quantity has to be an integer" . $_POST["ingr_quantity$i"];
+                            header('Location: add-recipe.php');
+                            exit();
+                        }elseif($_POST["ingr_quantity$i"] <= 0){
+                            $_SESSION['add_recipe']['errorCancel'] = false;
+                            $_SESSION['add_recipe']['errorCode'] = "ERROR: Ingredient $i 's quantity must be a number bigger than 0";
+                            header('Location: add-recipe.php');
+                            exit();
+                        }else{
+                            $check1 = true;
+                        }
+
+                        //Measurement cannot fail (has default cup) so we check name after
+                        if(empty($_POST["ingr_name$i"]) || strlen(trim($_POST["ingr_name$i"])) == 0){
+                            $_SESSION['add_recipe']['errorCancel'] = false;
+                            $_SESSION['add_recipe']['errorCode'] = "ERROR: Ingredient $i 's name cannot be empty"; 
+                            header('Location: add-recipe.php');
+                            exit();
+                        }else{
+                            $check2 = true;
+                        }
+                        // $data += array($ingr_name => $_POST[$varName]);
+
                     }
+                    
                 }
             }
 
@@ -116,6 +155,8 @@
             checkData('servingSize');
             checkData('prepTime');
             checkData('cookTime');
+
+            checkIngredients();
 
             noError();
 

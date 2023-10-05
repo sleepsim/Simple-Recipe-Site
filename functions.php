@@ -69,12 +69,12 @@
 
     function generatePrepTime(){
         echo '<label for="prepTime">Prep Time</label>';
-        echo '<input type="number" id="prepTime" name="prepTime" placeholder="in minutes">';
+        echo '<input type="number" id="prepTime" name="prepTime" placeholder="in minutes" value="1">';
     }
 
     function generateCookTime(){
         echo '<label for="cookTime">Cooking Time (Minutes)</label>';
-        echo '<input type="number" name="cookTime" id="cookTime" placeholder="in minutes">';
+        echo '<input type="number" name="cookTime" id="cookTime" placeholder="in minutes" value="1">';
     }
 
     function generateIngredients(){
@@ -141,5 +141,10 @@
         formEnd();
         divEnd();
         generateFooter();
+    }
+
+
+    //hackers, script kiddies begone
+    function sanitizeInput(array $inputs, array $fields){
     }
 ?>

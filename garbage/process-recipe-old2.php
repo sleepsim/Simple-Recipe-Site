@@ -87,6 +87,35 @@
             }
 
 
+            function checkIngredients(){
+                global $data;
+
+                //Check if there is atleast one ingredient
+                for($i = 0; $i < 10; $i++){
+                    if(isset($_POST["ingr_quantity$i"], $_POST["ingr_measurement$i"], $_POST['ingr_name0'])){
+                        // Quantity
+                        if(empty($_POST["ingr_quantity$i"]) || (strlen(trim($_POST["ingr_quantity$i"])) == 0)){
+                            $_SESSION['add_recipe']['errorCancel'] = false;
+                            $_SESSION['add-recipe']['errorCode'] = "ERROR: Ingredient $i 's quantity cannot be empty";
+                            // header('Location: add-recipe.php');
+                            exit();
+                            break;
+                        }
+                        //Measurement cannot fail (has default cup) so we check name after
+                        // if(empty($_POST["ingr_name$i"]) || strlen(trim($_POST["ingr_name$i"])) == 0){
+                        //     $_SESSION['add_recipe']['errorCancel'] = false;
+                        //     $_SESSION['add-recipe']['errorCode'] = "ERROR: Ingredient $i 's quantity cannot be empty"; 
+                        //     header('Location: add-recipe.php');
+                        //     exit();
+                        //     break;
+                        // }
+
+                        // $data += array($ingr_name => $_POST[$varName]);
+                    }
+                }
+            }
+
+
         ?>   
         
         <?php 
