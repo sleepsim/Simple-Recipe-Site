@@ -110,7 +110,7 @@
                 for($i = 0; $i < 10; $i++){
                     
                     if((!$check1 && !$check2) &&
-                        isset($_POST["ingr_quantity$i"], $_POST["ingr_measurement$i"], $_POST['ingr_name0'])){
+                        isset($_POST["ingr_quantity$i"], $_POST["ingr_measurement$i"], $_POST["ingr_name$i"])){
                         // Quantity
                         if(empty($_POST["ingr_quantity$i"]) || (strlen(trim($_POST["ingr_quantity$i"])) == 0)){
                             $_SESSION['add_recipe']['errorCancel'] = false;
@@ -119,12 +119,12 @@
                             exit();
                         }elseif(!is_numeric($_POST["ingr_quantity$i"])){
                             $_SESSION['add_recipe']['errorCancel'] = false;
-                            $_SESSION['add_recipe']['errorCode'] = "ERROR: Ingredient $i 's quantity has to be an integer" . $_POST["ingr_quantity$i"];
+                            $_SESSION['add_recipe']['errorCode'] = "ERROR: Ingredient $i 's quantity has to be an integer, Input is: " . $_POST["ingr_quantity$i"];
                             header('Location: add-recipe.php');
                             exit();
                         }elseif($_POST["ingr_quantity$i"] <= 0){
                             $_SESSION['add_recipe']['errorCancel'] = false;
-                            $_SESSION['add_recipe']['errorCode'] = "ERROR: Ingredient $i 's quantity must be a number bigger than 0";
+                            $_SESSION['add_recipe']['errorCode'] = "ERROR: Ingredient $i 's quantity must be a number bigger than 0, Input is: " . $_POST["ingr_quantity$i"];
                             header('Location: add-recipe.php');
                             exit();
                         }else{
@@ -140,11 +140,47 @@
                         }else{
                             $check2 = true;
                         }
+
+                        if($check1 && $check2){
+                            addIngredients();
+                            break;
+                        }else {
+                            $check1 = false;
+                            $check2 = false;
+                        }
                         // $data += array($ingr_name => $_POST[$varName]);
 
                     }
                     
                 }
+            }
+
+            function addIngredients(){
+                global $data;
+                for($i = 0; $i<10; $i++){
+                    if(isset($_POST["ingr_quantity$i"], $_POST["ingr_measurement$i"], $_POST["ingr_name$i"])){
+
+                        if(!empty($_POST["ingr_quantity$i"]) || !empty($_POST["ingr_name$i"])){
+                            if(empty($_POST["ingr_quantity$i"])){
+                                $_SESSION['add_recipe']['errorCancel'] = false;
+                                $_SESSION['add_recipe']['errorCode'] = "ERROR: Ingredient $i's quantity cannot be empty";
+                                header('Location: add-recipe.php');
+                                exit();
+                            }elseif(empty($_POST["ingr_name$i"])){
+                                $_SESSION['add_recipe']['errorCancel'] = false;
+                                $_SESSION['add_recipe']['errorCode'] = "ERROR: Ingredient $i 's name cannot be empty";
+                                header('Location: add-recipe.php');
+                                exit();
+                            }else{
+                                $data += array("ingr_quantity$i" => $_POST["ingr_quantity$i"]);
+                                $data += array("ingr_measurement$i" => $_POST["ingr_measurement$i"]);
+                                $data += array("ingr_name$i" => $_POST["ingr_name$i"]);
+                            }
+
+                        }
+                    }
+                }
+
             }
 
         ?>   
@@ -168,6 +204,9 @@
             echo '  The serving size is ' . $_POST['servingSize'];
             echo '  The prep time is ' . $_POST['prepTime'];
             echo '  The cook time is ' . $_POST['cookTime'];
+
+            $testout = implode("", $data);
+            echo $testout;
         ?>
 
 
