@@ -143,8 +143,4 @@
         generateFooter();
     }
 
-
-    //hackers, script kiddies begone
-    function sanitizeInput(array $inputs, array $fields){
-    }
 ?>

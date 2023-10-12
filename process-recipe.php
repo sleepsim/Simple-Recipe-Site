@@ -87,8 +87,9 @@
                         header('Location: add-recipe.php');
                         exit();
                         
-                    }else{//If successful store input
-                        $data += array($varName => $_POST[$varName]);
+                    }else{//If successful, sanitize data then store input
+                        $cleanData = filter_input(INPUT_POST, $varName, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                        $data += array($varName => $cleanData);
                     }
 
                 }else{ //First check fail
@@ -141,6 +142,7 @@
                             $check2 = true;
                         }
 
+                        //If both checks pass (atleast one valid ingredient), start adding values and cancel loop
                         if($check1 && $check2){
                             addIngredients();
                             break;
@@ -175,15 +177,19 @@
                                 $_SESSION['add_recipe']['errorCancel'] = false;
                                 $_SESSION['add_recipe']['errorCode'] = "ERROR: Ingredient $j 's quantity has to be an integer, Input is: " . $_POST["ingr_quantity$i"];
                                 header('Location: add-recipe.php');
+                                exit();
                             }elseif(empty($_POST["ingr_name$i"])){
                                 $_SESSION['add_recipe']['errorCancel'] = false;
                                 $_SESSION['add_recipe']['errorCode'] = "ERROR: Ingredient $j 's name cannot be empty";
                                 header('Location: add-recipe.php');
                                 exit();
-                            }else{
-                                $data += array("ingr_quantity$i" => $_POST["ingr_quantity$i"]);
-                                $data += array("ingr_measurement$i" => $_POST["ingr_measurement$i"]);
-                                $data += array("ingr_name$i" => $_POST["ingr_name$i"]);
+                            }else{ //Sanitize data then add to array list
+                                $cleanQty = filter_input(INPUT_POST, "ingr_quantity$i", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                                $cleanMsr = filter_input(INPUT_POST, "ingr_measurement$i", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                                $cleanNme = filter_input(INPUT_POST, "ingr_name$i", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                                $data += array("ingr_quantity$i" => $cleanQty);
+                                $data += array("ingr_measurement$i" => $cleanMsr);
+                                $data += array("ingr_name$i" => $cleanNme);
                             }
 
                         }
@@ -208,11 +214,12 @@
             generateNavbar();
             divStart();
 
-            echo '  The name is' . $_POST['recipeName'];
-            echo '  Description is' . $_POST['recipeDesc'];
-            echo '  The serving size is ' . $_POST['servingSize'];
-            echo '  The prep time is ' . $_POST['prepTime'];
-            echo '  The cook time is ' . $_POST['cookTime'];
+            // echo '  The name is' . $_POST['recipeName'];
+            // echo '  Description is' . $_POST['recipeDesc'];
+            // echo '  Filtered description is ' . $data['recipeDesc'];
+            // echo '  The serving size is ' . $_POST['servingSize'];
+            // echo '  The prep time is ' . $_POST['prepTime'];
+            // echo '  The cook time is ' . $_POST['cookTime'];
 
             $testout = implode("", $data);
             echo $testout;
