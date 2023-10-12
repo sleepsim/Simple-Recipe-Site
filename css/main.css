@@ -65,6 +65,9 @@ input:focus {
   background-color: white;
   outline: 3px solid orange;
 }
+input:focus::-moz-placeholder {
+  color: transparent;
+}
 input:focus::placeholder {
   color: transparent;
 }
@@ -95,6 +98,9 @@ textarea:focus {
   background-color: white;
   outline: 3px solid orange;
 }
+textarea:focus::-moz-placeholder {
+  color: transparent;
+}
 textarea:focus::placeholder {
   color: transparent;
 }
@@ -119,10 +125,23 @@ h1 {
   font-family: "Roboto Slab";
 }
 
+h2 {
+  font-family: "Roboto Slab";
+}
+
+.softer-font {
+  font-family: "Sofia Sans";
+  font-size: large;
+}
+
 .red-text {
   width: 30rem;
   color: red;
   font-family: "Mulish";
+}
+
+.ml-small {
+  margin-left: 2em;
 }
 
 .button-primary {
@@ -155,8 +174,20 @@ h1 {
   justify-content: center;
 }
 
+.justify-start {
+  justify-content: flex-start;
+}
+
 .align-center {
   align-items: center;
+}
+
+.align-start {
+  align-items: flex-start;
+}
+
+.margin-recipe {
+  margin: 0 10rem;
 }
 
 .padding-medium {

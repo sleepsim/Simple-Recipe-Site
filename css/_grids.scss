@@ -10,8 +10,20 @@
     justify-content: center;
 }
 
+.justify-start{
+    justify-content: flex-start;
+}
+
 .align-center{
     align-items: center;
+}
+
+.align-start{
+    align-items: flex-start;
+}
+
+.margin-recipe{
+    margin: 0 10rem;
 }
 
 .padding-medium{
