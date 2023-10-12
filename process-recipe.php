@@ -25,6 +25,8 @@
             //Array to store variables
             $data = array();
 
+            $data += array("index" => 0);
+
             //Load Functions
             require'functions.php';
 
@@ -159,6 +161,8 @@
 
             function addIngredients(){
                 global $data;
+                $ingredientsArr = array();
+
                 for($i = 0; $i<10; $i++){
                     $j = $i+1;
                     if(isset($_POST["ingr_quantity$i"], $_POST["ingr_measurement$i"], $_POST["ingr_name$i"])){
@@ -187,15 +191,41 @@
                                 $cleanQty = filter_input(INPUT_POST, "ingr_quantity$i", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                                 $cleanMsr = filter_input(INPUT_POST, "ingr_measurement$i", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                                 $cleanNme = filter_input(INPUT_POST, "ingr_name$i", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                                $data += array("ingr_quantity$i" => $cleanQty);
-                                $data += array("ingr_measurement$i" => $cleanMsr);
-                                $data += array("ingr_name$i" => $cleanNme);
+                                $ingredientsArr += array("ingr_quantity$i" => "$i+$cleanQty");
+                                $ingredientsArr += array("ingr_measurement$i" => "$i++$cleanMsr");
+                                $ingredientsArr += array("ingr_name$i" => "$i+++$cleanNme");
                             }
-
                         }
                     }
                 }
 
+                $out = implode("|", $ingredientsArr);
+                $data += array("ingredients" => $out);
+
+            }
+
+            function checkInstructions(){
+                global $data;
+                $outStr = "";
+
+                if(isset($_POST['instructions'])){
+                    if(empty($_POST["instructions"]) || (strlen(trim($_POST["instructions"])) == 0)){
+                        $_SESSION['add_recipe']['errorCancel'] = false;
+                        $_SESSION['add_recipe']['errorCode'] = "ERROR: Instructions cannot be empty";
+                        header('Location: add-recipe.php');
+                        exit();
+                    }else{
+                        $cleanIns = filter_input(INPUT_POST, 'instructions', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                        $cleanIns = trim(preg_replace('/\s+/', '+', $cleanIns));
+                        // $arr = explode("\n", $cleanIns);
+                        // $arr2 = array();
+                        // foreach($arr as $key=>$value) {
+                        //     $arr2[$key] = $key.$value;
+                        // }
+                        // $out = implode("|", $arr2);
+                        $data += array("instructions" => $cleanIns);
+                    }
+                }
             }
 
         ?>   
@@ -209,20 +239,39 @@
 
             checkIngredients();
 
+            checkInstructions();
+
             noError();
 
             generateNavbar();
             divStart();
 
-            // echo '  The name is' . $_POST['recipeName'];
-            // echo '  Description is' . $_POST['recipeDesc'];
-            // echo '  Filtered description is ' . $data['recipeDesc'];
-            // echo '  The serving size is ' . $_POST['servingSize'];
-            // echo '  The prep time is ' . $_POST['prepTime'];
-            // echo '  The cook time is ' . $_POST['cookTime'];
+            $testout = implode(",", $data);
+            // echo $testout;
 
-            $testout = implode("", $data);
-            echo $testout;
+
+            
+            $file = fopen('recipe.csv', 'a+');
+
+            $fp = file('recipe.csv', FILE_SKIP_EMPTY_LINES);
+            
+            echo count($fp);
+
+            $data['index'] = count($fp)+1;
+        
+            fputcsv($file, $data);
+
+            fclose($file);
+
+            $testing24 = fopen('recipe.csv', 'r');
+
+            echo "<br> Reading file now: <br><br>";
+            
+            while($array = fgetcsv($testing24)){
+                echo $array[0] . ",";
+                // echo $array[1] . ",";
+                // echo $array[2] . "<br>";
+            }
         ?>
 
 
