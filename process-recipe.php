@@ -191,15 +191,18 @@
                                 $cleanQty = filter_input(INPUT_POST, "ingr_quantity$i", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                                 $cleanMsr = filter_input(INPUT_POST, "ingr_measurement$i", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                                 $cleanNme = filter_input(INPUT_POST, "ingr_name$i", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                                $ingredientsArr += array("ingr_quantity$i" => "$i+$cleanQty");
-                                $ingredientsArr += array("ingr_measurement$i" => "$i++$cleanMsr");
-                                $ingredientsArr += array("ingr_name$i" => "$i+++$cleanNme");
+                                // $ingredientsArr += array("ingr_quantity$i" => "$i+$cleanQty");
+                                // $ingredientsArr += array("ingr_measurement$i" => "$i++$cleanMsr");
+                                // $ingredientsArr += array("ingr_name$i" => "$i+++$cleanNme");
+                                array_push($ingredientsArr, "$cleanQty+$cleanMsr+$cleanNme");
+                                // print_r("$cleanQty+$cleanMsr+$cleanNme");
                             }
                         }
                     }
                 }
 
                 $out = implode("|", $ingredientsArr);
+                print_r($out);
                 $data += array("ingredients" => $out);
 
             }
@@ -257,7 +260,7 @@
             
             echo count($fp);
 
-            $data['index'] = count($fp)+1;
+            $data['index'] = count($fp);
         
             fputcsv($file, $data);
 
@@ -266,12 +269,9 @@
             $testing24 = fopen('recipe.csv', 'r');
 
             echo "<br> Reading file now: <br><br>";
-            
-            while($array = fgetcsv($testing24)){
-                echo $array[0] . ",";
-                // echo $array[1] . ",";
-                // echo $array[2] . "<br>";
-            }
+
+            //generate recipe link -> details.php?index= . "$fp+1"
+
         ?>
 
 
