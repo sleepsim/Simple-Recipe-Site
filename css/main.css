@@ -1,5 +1,6 @@
 .navbar {
   font-family: "Sofia Sans";
+  font-weight: 600;
 }
 .navbar ul {
   list-style-type: none;
@@ -65,9 +66,6 @@ input:focus {
   background-color: white;
   outline: 3px solid orange;
 }
-input:focus::-moz-placeholder {
-  color: transparent;
-}
 input:focus::placeholder {
   color: transparent;
 }
@@ -97,9 +95,6 @@ textarea {
 textarea:focus {
   background-color: white;
   outline: 3px solid orange;
-}
-textarea:focus::-moz-placeholder {
-  color: transparent;
 }
 textarea:focus::placeholder {
   color: transparent;
@@ -134,6 +129,17 @@ h2 {
   font-size: large;
 }
 
+.ing-font {
+  font-family: "Sofia Sans";
+  font-weight: 400;
+  font-style: italic;
+}
+
+.softest-font {
+  font-family: "Sofia Sans";
+  font-weight: 300;
+}
+
 .red-text {
   width: 30rem;
   color: red;
@@ -163,6 +169,28 @@ h2 {
   background-color: rgb(154, 100, 0);
 }
 
+a {
+  color: black;
+  text-decoration: none;
+}
+a:visited {
+  color: black;
+}
+a:hover {
+  color: orange;
+}
+
+dt {
+  margin-top: 1rem;
+  font-weight: 600;
+  font-size: large;
+  font-family: "Sofia Sans";
+}
+
+.orange-text {
+  color: orange;
+}
+
 .flex-container {
   display: flex;
   gap: 2rem;
@@ -187,7 +215,7 @@ h2 {
 }
 
 .margin-recipe {
-  margin: 0 10rem;
+  margin: 0 20rem;
 }
 
 .padding-medium {

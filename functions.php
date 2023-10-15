@@ -5,9 +5,9 @@
         echo'<div class="navbar">
                 <ul>
                     <li><a id="logo" href="index.php"><i class="fa-solid fa-kitchen-set"></i> iatPlate</a></li>
-                    <li><a href="">Recipes</a></li>
+                    <li><a href="index.php">Recipes</a></li>
                     <li><a href="add-recipe.php">Add Recipe</a></li>
-                    <li><a href="">About</a></li>
+                    <li><a href="about.php">About</a></li>
                 </ul>
             </div>';
     }
@@ -83,12 +83,13 @@
             echo '<div class="ingredient-container">';
             echo '<input class="no-mr smaller type="text" id="ingr_quantity' . $i . '" name="ingr_quantity' . $i . '" placeholder="Qty.">';
             echo '<select class="no-mr" name="ingr_measurement' . $i . '" id="ingr_measurement' . $i . '">';
-            echo '<option value="cup">cup</option>
+            echo '<option value="lbs">lbs</option>
+                <option value="cup">cup</option>
                 <option value="ml">ml</option>
                 <option value="litre">litre</option>
                 <option value="spoon">spoon</option>
                 <option value="tspoon">tspoon</option>
-                <option value="galoon">galloon</option>';
+                <option value="gallon">galloon</option>';
             echo '</select>';
             echo '<input class="bigger" type="text" id="ingr_name'. $i . '" name="ingr_name'. $i .'" placeholder="item name">';
             echo '</div>';
@@ -97,12 +98,12 @@
 
     function generateInstructions(){
         echo '<label for="instructions">Instructions (separate steps by lines)</label>';
-        echo '<textarea name="instructions" id="instructions" placeholder="Add Instructions"></textarea>';
+        echo '<textarea name="instructions" id="instructions" placeholder="Add Instructions" required></textarea>';
     }
 
     function generateTags(){
-        echo '<label for="">Tags (separate tags by comma or ",")</label>';
-        echo '<textarea name="" id="" placeholder="Add Tags"></textarea>';
+        echo '<label for="tags">Tags (separate tags by comma ",")</label>';
+        echo '<textarea name="tags" id="tags" placeholder="Add Tags" required></textarea>';
     }
 
     function generateSubmitButton(){
@@ -114,7 +115,7 @@
     function generateFooter(){
         echo '<div class="foot">';
         echo '<div class="flex-container justify-center align-center">';
-        echo '<p>IAT352-A1</p>';
+        echo '<p>IAT352-Pocholo Andres</p>';
         echo '</div>';
         echo '</div>';
     }

@@ -24,22 +24,13 @@
 
         generateNavbar();
 
-        $allRecipes = array_map('str_getcsv', file('recipes/recipe.csv'));
+        divStart();
+        echo '<h1>IAT 352 - Fall 2023</h1>';
+        echo '<h2>Pocholo Andres</h2>';
+        
+        generateFooter();
 
-        if(empty($allRecipes) || count($allRecipes) == 0){
-            recipeDivStart();
-            echo "<h1> There are currently no recipes available </h1>";
-            divEnd();
-        }else{
-            recipeDivStart();
-            $numRecipes = count($allRecipes);
-            echo "<h1> $numRecipes Recipe(s) Available</h1>";
-
-            generateList($allRecipes);
-            // print_r($allRecipes);
-
-            divEnd();
-        }
+        divEnd();
 
     ?>
 

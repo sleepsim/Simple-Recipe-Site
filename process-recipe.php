@@ -202,7 +202,6 @@
                 }
 
                 $out = implode("|", $ingredientsArr);
-                print_r($out);
                 $data += array("ingredients" => $out);
 
             }
@@ -219,14 +218,28 @@
                         exit();
                     }else{
                         $cleanIns = filter_input(INPUT_POST, 'instructions', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                        $cleanIns = trim(preg_replace('/\s+/', '+', $cleanIns));
-                        // $arr = explode("\n", $cleanIns);
-                        // $arr2 = array();
-                        // foreach($arr as $key=>$value) {
-                        //     $arr2[$key] = $key.$value;
-                        // }
-                        // $out = implode("|", $arr2);
+                        $cleanIns = trim(preg_replace('/(?![ ])\s+/', '+', $cleanIns));
+                        $cleanIns = trim(preg_replace('/\s+/', ' ', $cleanIns));
                         $data += array("instructions" => $cleanIns);
+                    }
+                }
+            }
+
+            function checkTags(){
+                global$data;
+                $tagsArr = array();
+
+                if(isset($_POST['tags'])){
+                    if(empty($_POST["tags"]) || (strlen(trim($_POST["tags"])) == 0)){
+                        $_SESSION['add_recipe']['errorCancel'] = false;
+                        $_SESSION['add_recipe']['errorCode'] = "ERROR: Tags cannot be empty";
+                        header('Location: add-recipe.php');
+                        exit();
+                    }else{
+                        $cleanTags = filter_input(INPUT_POST, "tags", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                        $cleanTags = trim(preg_replace('/\s+/', ',', $cleanTags));
+                        $cleanTags = preg_replace("/,+/", ",", $cleanTags);
+                        $data += array("tags" => $cleanTags);
                     }
                 }
             }
@@ -239,10 +252,9 @@
             checkData('servingSize');
             checkData('prepTime');
             checkData('cookTime');
-
             checkIngredients();
-
             checkInstructions();
+            checkTags();
 
             noError();
 
@@ -254,11 +266,11 @@
 
 
             
-            $file = fopen('recipe.csv', 'a+');
+            $file = fopen('recipes/recipe.csv', 'a+');
 
-            $fp = file('recipe.csv', FILE_SKIP_EMPTY_LINES);
+            $fp = file('recipes/recipe.csv', FILE_SKIP_EMPTY_LINES);
             
-            echo count($fp);
+            $newlyAdded = count($fp);
 
             $data['index'] = count($fp);
         
@@ -266,9 +278,11 @@
 
             fclose($file);
 
-            $testing24 = fopen('recipe.csv', 'r');
+            echo "<h1>Recipe Successfully Added</h1>";
 
-            echo "<br> Reading file now: <br><br>";
+            echo "<h2><a href='details.php?index=$newlyAdded' class='orange-text'>View Recipe Here</a></h2>";
+
+            session_unset();
 
             //generate recipe link -> details.php?index= . "$fp+1"
 
